@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0">Sell Stocks</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/sell" method="POST">
+                        <div class="mb-3">
+                            <label for="symbolSelect" class="form-label">Select Stock</label>
+                            <select class="form-select" id="symbolSelect" name="symbol" required>
+                                <option value="" disabled selected>Choose a stock...</option>
+                                {% for symbol in symbols %}
+                                <option value="{{ symbol.symbol }}">{{ symbol.symbol }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="sharesInput" class="form-label">Number of Shares</label>
+                            <input type="number" 
+                                   class="form-control" 
+                                   id="sharesInput" 
+                                   name="shares" 
+                                   placeholder="Enter number of shares" 
+                                   min="1" 
+                                   required>
+                        </div>
+                        
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-danger btn-lg">
+                                <i class="bi bi-currency-exchange me-2"></i>Sell Shares
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

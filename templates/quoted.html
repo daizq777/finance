@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow-sm p-4">
+                    <h2 class="text-center mb-4">Result</h2>
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            Company Name: {{ res.name }}
+                        </div>
+                        <div class="list-group-item">
+                            Stock Symbol: {{ res.symbol }}
+                        </div>
+                        <div class="list-group-item">
+                            Current Price: {{ res.price }}
+                        </div>
+                    </div>
+                    <a href="/quote" class="btn btn-outline-primary mt-4">Return Query</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

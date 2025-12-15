@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block main %}
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card shadow">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">Buy Stocks</h4>
+                    </div>
+                    <div class="card-body">
+                        <form action="/buy" method="POST">
+                            <div class="mb-3">
+                                <label for="symbol" class="form-label">Stock Symbol</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    id="symbol" 
+                                    name="symbol" 
+                                    placeholder="e.g. AAPL" 
+                                    autofocus 
+                                    required
+                                >
+                            </div>
+                            <div class="mb-3">
+                                <label for="shares" class="form-label">Number of Shares</label>
+                                <input 
+                                    type="number" 
+                                    class="form-control" 
+                                    id="shares" 
+                                    name="shares" 
+                                    placeholder="e.g. 10" 
+                                    min="1" 
+                                    step="1" 
+                                    required
+                                >
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Confirm Purchase</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

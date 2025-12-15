@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h5 class="card-title mb-0">Transaction History</h5>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-4">Time</th>
+                            <th>Action</th>
+                            <th>Symbol</th>
+                            <th class="text-end pe-4">Shares</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for line in data %}
+                        <tr>
+                            <td class="ps-4">{{ line.time }}</td>
+                            <td>
+                                <span class="badge rounded-pill 
+                                    {% if line.action == 'buy' %}bg-success{% else %}bg-danger{% endif %}">
+                                    {{ line.action|upper }}
+                                </span>
+                            </td>
+                            <td class="fw-bold">{{ line.symbol }}</td>
+                            <td class="text-end pe-4">
+                                {% if line.action == 'buy' %}
+                                <span class="text-success">+{{ line.shares }}</span>
+                                {% else %}
+                                <span class="text-danger">-{{ line.shares }}</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<div class="container mt-4">
+    <!-- 股票持仓卡片 -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="card-title mb-0">Your Portfolio</h5>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th class="ps-4">Stocks</th>
+                            <th>Shares</th>
+                            <th>Price</th>
+                            <th class="text-end pe-4">Value</th>
+                            <th>Operation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for purchase in purchases %}
+                        <tr>
+                            <td class="ps-4 fw-bold">{{ purchase.symbol }}</td>
+                            <td>{{ purchase.shares }}</td>
+                            <td>{{ "${:,.2f}".format(prices[purchase.symbol]) }}</td>
+                            <td class="text-end pe-4">{{ "${:,.2f}".format(prices[purchase.symbol] * purchase.shares) }}</td>
+                            <td>
+                                <form action="/" method="POST" class="row g-2 align-items-center">
+                                    <!-- 隐藏字段 -->
+                                    <input name="symbol" type="hidden" value="{{ purchase.symbol }}">
+                                    <input name="cur_share" type="hidden" value="{{ purchase.shares }}">
+                                    
+                                    <!-- 操作选择下拉框 -->
+                                    <div class="col-auto">
+                                        <select name="operation" class="form-select form-select-sm">
+                                            <option value="default" disabled selected>Choose operation</option>
+                                            <option value="buy">Buy</option>
+                                            <option value="sell">Sell</option>
+                                        </select>
+                                    </div>
+        
+                                <!-- 份额输入 -->
+                                    <div class="col-auto">
+                                        <input 
+                                            name="shares" 
+                                            placeholder="Shares" 
+                                            class="form-control form-control-sm" 
+                                            autocomplete="off" 
+                                            type="number" 
+                                            min="1"
+                                            style="width: 100px;"
+                                        >
+                                    </div>
+                                    
+                                <!-- 提交按钮 -->
+                                    <div class="col-auto">
+                                        <button type="submit" class="btn btn-sm btn-primary">
+                                            <i class="bi bi-check-circle"></i> Submit
+                                        </button>
+                                    </div>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 资金汇总卡片 -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h6 class="mb-0">Cash Balance</h6>
+                </div>
+                <div class="card-body text-center py-4">
+                    <h3 class="text-success">{{ "${:,.2f}".format(cash) }}</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-info text-white">
+                    <h6 class="mb-0">Total Assets</h6>
+                </div>
+                <div class="card-body text-center py-4">
+                    <h3 class="text-info">{{ "${:,.2f}".format(balance) }}</h3>
+                    <small class="text-muted">(Stocks + Cash)</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
